@@ -1,0 +1,21 @@
+.gridItem {
+    border: 1px black solid;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    line-height: 0;
+}
+.grid {
+    width: 200px;
+    height: 200px;
+   
+}
+.type1 {
+    background-color: #ffb2b2
+}
+.type2 {
+    background-color: red;
+}
+.type3 {
+    background-color: yellow
+}

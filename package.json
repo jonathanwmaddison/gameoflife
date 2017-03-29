@@ -1,0 +1,30 @@
+{
+  "name": "gameoflife",
+  "version": "1.0.0",
+  "description": "A simulation of Conway's Game of Life",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "author": "Jonathan Maddison",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "html-webpack-plugin": "^2.28.0",
+    "install": "^0.8.7",
+    "npm": "^4.4.4",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
+  }
+}
