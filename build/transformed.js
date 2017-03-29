@@ -9580,21 +9580,20 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         this.state = {
             grid: [],
             generation: 0,
-            running: true
+            running: true,
+            size: 100
         };
     }
     gridMaker(size) {
         function randomGridSetter() {
             return Math.floor(Math.random() * 3);
         }
-        this.setState({
-            grid: []
-        });
+        let newGrid = [];
         for (var i = 0; i < size; i++) {
-            this.state.grid.push(randomGridSetter());
+            newGrid.push(randomGridSetter());
         }
         this.setState({
-            grid: this.state.grid
+            grid: newGrid
         });
     }
     getNeighbors(index) {
@@ -9626,7 +9625,6 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         let that = this;
         //helper function to check each grid unit
         function unitChecker(index) {
-            console.log(index);
             let neighbors = that.getNeighbors(index);
             let neighborsAlive = 0;
             neighbors.forEach(function (neighbor) {
@@ -9658,13 +9656,29 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                 this.generateGeneration();this.setState({ generation: 1 + this.state.generation });
             }, 500);
         } else if (this.state.grid.indexOf(1) + this.state.grid.indexOf(2) < 0) {
-            this.setState({
-                generation: "Life is extinct :("
-            });
+            this.onStartClick();
         }
     }
+    onStartClick() {
+        if (this.state.running) {
+            document.getElementById('start').innerHTML = "Start";
+        } else {
+            document.getElementById('start').innerHTML = "Pause";
+            setTimeout(() => this.generateGeneration(), 1000);
+        }
+        this.setState({
+            running: !this.state.running
+        });
+    }
+    onResetClick() {
+        console.log("reset");
+        this.setState({
+            generation: 0
+        });
+        this.gridMaker(this.state.size);
+    }
     componentWillMount() {
-        this.gridMaker(100);
+        this.gridMaker(this.state.size);
     }
     componentDidMount() {
         setTimeout(() => {
@@ -9676,8 +9690,18 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'grid' },
-            this.state.grid.map((item, index) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__GridSection__["a" /* default */], { index: index, size: this.state.grid.length, item: item })),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GenerationDisplay__["a" /* default */], { generation: this.state.generation })
+            this.state.grid.map((item, index) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__GridSection__["a" /* default */], { key: index, index: index, size: this.state.grid.length, item: item })),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GenerationDisplay__["a" /* default */], { generation: this.state.generation }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { id: 'start', onClick: () => this.onStartClick() },
+                'Pause'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { onClick: () => this.onResetClick() },
+                'Reset'
+            )
         );
     }
 }
