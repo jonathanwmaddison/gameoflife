@@ -14,21 +14,20 @@ class Grid extends Component {
         this.state = {
             grid: [],
             generation: 0,
-            running: true
+            running: true,
+            size: 100
         }
     }
     gridMaker(size) {
         function randomGridSetter(){
             return Math.floor(Math.random()*3)
         }
-        this.setState({
-            grid: []
-        })
+        let newGrid = []
         for (var i = 0; i < size; i++) {
-            this.state.grid.push(randomGridSetter())
+            newGrid.push(randomGridSetter())
         }
         this.setState({
-            grid: this.state.grid
+            grid: newGrid
         });
     }
     getNeighbors(index) {
@@ -62,7 +61,6 @@ class Grid extends Component {
         let that = this;
         //helper function to check each grid unit
         function unitChecker (index) {
-            console.log(index)
             let neighbors = that.getNeighbors(index);
             let neighborsAlive = 0;
             neighbors.forEach(function(neighbor){
@@ -92,13 +90,29 @@ class Grid extends Component {
         if(this.state.running && this.state.grid.indexOf(1) + this.state.grid.indexOf(2) >= 0) {
             var repeat = setTimeout(()=>{this.generateGeneration(); this.setState({generation: 1+this.state.generation }) }, 500)
         } else if(this.state.grid.indexOf(1)+this.state.grid.indexOf(2) < 0) {
-            this.setState({
-                generation: "Life is extinct :("
-            })
+            this.onStartClick()    
         }
     }
+    onStartClick() {
+       if(this.state.running) {
+            document.getElementById('start').innerHTML = "Start"
+        } else { 
+            document.getElementById('start').innerHTML = "Pause"
+            setTimeout(()=>this.generateGeneration(), 1000) 
+        }
+       this.setState({
+           running: !this.state.running
+        }) 
+    }
+    onResetClick() {
+        console.log("reset")
+        this.setState({
+            generation: 0,
+        })
+        this.gridMaker(this.state.size);
+    }
     componentWillMount(){
-        this.gridMaker(100); 
+        this.gridMaker(this.state.size); 
     }
     componentDidMount(){
         setTimeout(()=>{this.generateGeneration()}, 1000)
@@ -107,8 +121,10 @@ class Grid extends Component {
         
         return (
             <div className="grid">
-                {this.state.grid.map((item,index) => <GridSection index={index} size={this.state.grid.length} item={item} />)}
+                {this.state.grid.map((item,index) => <GridSection key={index} index={index} size={this.state.grid.length} item={item} />)}
                 <GenerationDisplay generation={ this.state.generation } />
+                <button id="start" onClick={()=>this.onStartClick()}>Pause</button>
+                <button onClick={()=>this.onResetClick()}>Reset</button>
             </div>
         )
     }
