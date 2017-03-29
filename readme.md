@@ -8,3 +8,5 @@ To install:
 The simulation should run a webpack dev server, on your machine.
 
 This simulation was created as part of freeCodeCamp's Data Visualization exercise.
+
+View the simulation live:  https://jonathanwmaddison.github.io/gameoflife/build/index.html
