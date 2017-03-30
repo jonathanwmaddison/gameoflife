@@ -20,7 +20,8 @@ class Grid extends Component {
             gridWidth: 440,
             aliveMax: 3,
             aliveMin: 2,
-            deadNum: 3 
+            deadNum: 3,
+            speed: 350 
         }
     }
     gridMaker(size) {
@@ -93,7 +94,7 @@ class Grid extends Component {
             grid: newGrid
         });
         if(this.state.running && this.state.grid.indexOf(1) + this.state.grid.indexOf(2) >= 0) {
-            var repeat = setTimeout(()=>{this.generateGeneration(); this.setState({generation: 1+this.state.generation }) }, 500)
+            var repeat = setTimeout(()=>{this.generateGeneration(); this.setState({generation: 1+this.state.generation }) }, this.state.speed)
         } else if(this.state.grid.indexOf(1)+this.state.grid.indexOf(2) < 0) {
             this.onStartClick()    
         }
@@ -149,10 +150,14 @@ class Grid extends Component {
             })
         }
         else if (event.target.id === "deadNum") {
-            console.log(event.target.value)
             this.setState({
                 deadNum: Number(event.target.value)
             })
+        }
+        else if (event.target.id === "speed"){
+            this.setState({
+                speed: Number(event.target.value)
+            }) 
         }
     }
     componentWillMount(){
@@ -180,6 +185,7 @@ class Grid extends Component {
                     <p>If you have more than <input id="aliveMax" onChange={this.onChange.bind(this)} className="rulesInput" defaultValue={ this.state.aliveMax } /> or less than <input onChange={this.onChange.bind(this)} id="aliveMin" className="rulesInput" value= { this.state.aliveMin } /> neighbors alive you live in the next generation  </p>
                     <h4>If you're dead (grey/white)</h4>
                     <p>If you have exactly <input onChange={this.onChange.bind(this)} id="deadNum" className="rulesInput" value= { this.state.deadNum } /> neighbors that are alive you will be alive in the next generation</p>
+                    <h4>Each generation lasts <input onChange={this.onChange.bind(this)} id="speed" className="rulesInput speed" value= { this.state.speed } /> milliseconds.</h4>
                 </div>
             </div>
         )
