@@ -15,7 +15,8 @@ class Grid extends Component {
             grid: [],
             generation: 0,
             running: true,
-            size: 100
+            size: 20,
+            gridSize: 400
         }
     }
     gridMaker(size) {
@@ -23,7 +24,7 @@ class Grid extends Component {
             return Math.floor(Math.random()*3)
         }
         let newGrid = []
-        for (var i = 0; i < size; i++) {
+        for (var i = 0; i < size*size; i++) {
             newGrid.push(randomGridSetter())
         }
         this.setState({
@@ -111,6 +112,25 @@ class Grid extends Component {
         })
         this.gridMaker(this.state.size);
     }
+    boardSize(direction){
+            //for every 5 increase grid size needs to expand 100px in width and height
+            if(direction ==="increase") {
+                this.setState({
+                    size: this.state.size + 5,
+                    gridSize: this.state.gridSize + 100
+                }) 
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize+"px"
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize+"px"
+            } else {
+                this.setState({
+                    size: this.state.size - 5,
+                    gridSize: this.state.gridSize - 100
+                }) 
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize+"px"
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize+"px"
+            }
+            this.onResetClick()
+    }
     componentWillMount(){
         this.gridMaker(this.state.size); 
     }
@@ -125,6 +145,11 @@ class Grid extends Component {
                 <GenerationDisplay generation={ this.state.generation } />
                 <button id="start" onClick={()=>this.onStartClick()}>Pause</button>
                 <button onClick={()=>this.onResetClick()}>Reset</button>
+                <div>
+                Board Size <br />
+                <button id="increaser" onClick={()=>this.boardSize("increase")}>larger </button>
+                <button id="decreaser" onClick={()=>this.boardSize("decrease")}>smaller</button>
+                </div>
             </div>
         )
     }

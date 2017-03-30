@@ -9581,7 +9581,8 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             grid: [],
             generation: 0,
             running: true,
-            size: 100
+            size: 20,
+            gridSize: 400
         };
     }
     gridMaker(size) {
@@ -9589,7 +9590,7 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             return Math.floor(Math.random() * 3);
         }
         let newGrid = [];
-        for (var i = 0; i < size; i++) {
+        for (var i = 0; i < size * size; i++) {
             newGrid.push(randomGridSetter());
         }
         this.setState({
@@ -9677,6 +9678,25 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         });
         this.gridMaker(this.state.size);
     }
+    boardSize(direction) {
+        //for every 5 increase grid size needs to expand 100px in width and height
+        if (direction === "increase") {
+            this.setState({
+                size: this.state.size + 5,
+                gridSize: this.state.gridSize + 100
+            });
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize + "px";
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize + "px";
+        } else {
+            this.setState({
+                size: this.state.size - 5,
+                gridSize: this.state.gridSize - 100
+            });
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize + "px";
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize + "px";
+        }
+        this.onResetClick();
+    }
     componentWillMount() {
         this.gridMaker(this.state.size);
     }
@@ -9701,6 +9721,22 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                 'button',
                 { onClick: () => this.onResetClick() },
                 'Reset'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                'Board Size ',
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { id: 'increaser', onClick: () => this.boardSize("increase") },
+                    'larger '
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { id: 'decreaser', onClick: () => this.boardSize("decrease") },
+                    'smaller'
+                )
             )
         );
     }
@@ -11692,7 +11728,7 @@ exports = module.exports = __webpack_require__(92)(undefined);
 
 
 // module
-exports.push([module.i, ".gridItem {\n    border: 1px black solid;\n    height: 20px;\n    width: 20px;\n    display: inline-block;\n    line-height: 0;\n}\n.grid {\n    width: 200px;\n    height: 200px;\n   \n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
+exports.push([module.i, ".gridItem {\n    border: 1px black solid;\n    height: 20px;\n    width: 20px;\n    display: inline-block;\n    line-height: 0;\n}\n.grid {\n    width: 400px;\n    height: 400px;\n   \n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
 
 // exports
 
