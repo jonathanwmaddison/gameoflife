@@ -17,7 +17,10 @@ class Grid extends Component {
             running: true,
             size: 40,
             gridHeight: 300,
-            gridWidth: 440 
+            gridWidth: 440,
+            aliveMax: 3,
+            aliveMin: 2,
+            deadNum: 3 
         }
     }
     gridMaker(size) {
@@ -70,15 +73,15 @@ class Grid extends Component {
                     neighborsAlive++
                 }
             })
-            //seperate conditions if current cell is alive or dead
+            //separate conditions if current cell is alive or dead
             if(grid[index] > 0) {
-               if(neighborsAlive<2 || neighborsAlive>3) {
+               if(neighborsAlive<that.state.aliveMin || neighborsAlive>that.state.aliveMax) {
                     newGrid[index] = 0;
-                } else if (neighborsAlive>=2 && neighborsAlive <=3) {
+                } else if (neighborsAlive>=that.state.aliveMin && neighborsAlive <=that.state.aliveMax) {
                     newGrid[index] = 2;
                 }
             } else {
-                if(neighborsAlive === 3) {
+                if(neighborsAlive === that.state.deadNum) {
                     newGrid[index] = 1;
                 } 
             }
@@ -134,6 +137,24 @@ class Grid extends Component {
             }
             this.onResetClick()
     }
+    onChange(event) {
+        if (event.target.id === "aliveMax") {
+            this.setState({
+                aliveMax: event.target.value
+            })
+        }
+        else if (event.target.id === "aliveMin") {
+            this.setState({
+                aliveMin: event.target.value
+            })
+        }
+        else if (event.target.id === "deadNum") {
+            console.log(event.target.value)
+            this.setState({
+                deadNum: Number(event.target.value)
+            })
+        }
+    }
     componentWillMount(){
         this.gridMaker(this.state.size); 
     }
@@ -152,6 +173,13 @@ class Grid extends Component {
                 Board Size <br />
                 <button id="increaser" onClick={()=>this.boardSize("increase")}>larger </button>
                 <button id="decreaser" onClick={()=>this.boardSize("decrease")}>smaller</button>
+                </div>
+                <div>
+                    <h3>Rules of the Game of Life:</h3>
+                    <h4>If you're alive (red)</h4>
+                    <p>If you have more than <input id="aliveMax" onChange={this.onChange.bind(this)} className="rulesInput" defaultValue={ this.state.aliveMax } /> or less than <input onChange={this.onChange.bind(this)} id="aliveMin" className="rulesInput" value= { this.state.aliveMin } /> neighbors alive you live in the next generation  </p>
+                    <h4>If you're dead (grey/white)</h4>
+                    <p>If you have exactly <input onChange={this.onChange.bind(this)} id="deadNum" className="rulesInput" value= { this.state.deadNum } /> neighbors that are alive you will be alive in the next generation</p>
                 </div>
             </div>
         )

@@ -5,6 +5,11 @@
     display: inline-block;
     float:left    
 }
+.rulesInput {
+    width: 35px;
+    height: 20px;
+    text-align: center;
+}
 .grid {
     width: 440px;
     height: 300px;

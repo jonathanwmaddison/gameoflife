@@ -9583,7 +9583,10 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             running: true,
             size: 40,
             gridHeight: 300,
-            gridWidth: 440
+            gridWidth: 440,
+            aliveMax: 3,
+            aliveMin: 2,
+            deadNum: 3
         };
     }
     gridMaker(size) {
@@ -9634,15 +9637,15 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     neighborsAlive++;
                 }
             });
-            //seperate conditions if current cell is alive or dead
+            //separate conditions if current cell is alive or dead
             if (grid[index] > 0) {
-                if (neighborsAlive < 2 || neighborsAlive > 3) {
+                if (neighborsAlive < that.state.aliveMin || neighborsAlive > that.state.aliveMax) {
                     newGrid[index] = 0;
-                } else if (neighborsAlive >= 2 && neighborsAlive <= 3) {
+                } else if (neighborsAlive >= that.state.aliveMin && neighborsAlive <= that.state.aliveMax) {
                     newGrid[index] = 2;
                 }
             } else {
-                if (neighborsAlive === 3) {
+                if (neighborsAlive === that.state.deadNum) {
                     newGrid[index] = 1;
                 }
             }
@@ -9700,6 +9703,22 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         }
         this.onResetClick();
     }
+    onChange(event) {
+        if (event.target.id === "aliveMax") {
+            this.setState({
+                aliveMax: event.target.value
+            });
+        } else if (event.target.id === "aliveMin") {
+            this.setState({
+                aliveMin: event.target.value
+            });
+        } else if (event.target.id === "deadNum") {
+            console.log(event.target.value);
+            this.setState({
+                deadNum: Number(event.target.value)
+            });
+        }
+    }
     componentWillMount() {
         this.gridMaker(this.state.size);
     }
@@ -9739,6 +9758,41 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     'button',
                     { id: 'decreaser', onClick: () => this.boardSize("decrease") },
                     'smaller'
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h3',
+                    null,
+                    'Rules of the Game of Life:'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h4',
+                    null,
+                    'If you\'re alive (red)'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'If you have more than ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'aliveMax', onChange: this.onChange.bind(this), className: 'rulesInput', defaultValue: this.state.aliveMax }),
+                    ' or less than ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange.bind(this), id: 'aliveMin', className: 'rulesInput', value: this.state.aliveMin }),
+                    ' neighbors alive you live in the next generation  '
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h4',
+                    null,
+                    'If you\'re dead (grey/white)'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'If you have exactly ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange.bind(this), id: 'deadNum', className: 'rulesInput', value: this.state.deadNum }),
+                    ' neighbors that are alive you will be alive in the next generation'
                 )
             )
         );
@@ -11731,7 +11785,7 @@ exports = module.exports = __webpack_require__(92)(undefined);
 
 
 // module
-exports.push([module.i, ".gridItem {\n    border: 1px #E8E8EE solid;\n    height: 11px;\n    width: 11px;\n    display: inline-block;\n    float:left    \n}\n.grid {\n    width: 440px;\n    height: 300px;\n   \n}\n.type0{\n    background-color: #E8F8E8\n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
+exports.push([module.i, ".gridItem {\n    border: 1px #E8E8EE solid;\n    height: 11px;\n    width: 11px;\n    display: inline-block;\n    float:left    \n}\n.rulesInput {\n    width: 35px;\n    height: 20px;\n    text-align: center;\n}\n.grid {\n    width: 440px;\n    height: 300px;\n   \n}\n.type0{\n    background-color: #E8F8E8\n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
 
 // exports
 
