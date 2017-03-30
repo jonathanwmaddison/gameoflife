@@ -9581,8 +9581,9 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             grid: [],
             generation: 0,
             running: true,
-            size: 20,
-            gridSize: 400
+            size: 40,
+            gridHeight: 300,
+            gridWidth: 440
         };
     }
     gridMaker(size) {
@@ -9683,17 +9684,19 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         if (direction === "increase") {
             this.setState({
                 size: this.state.size + 5,
-                gridSize: this.state.gridSize + 100
+                gridHeight: this.state.gridHeight + 30,
+                gridWidth: this.state.gridWidth + 55
             });
-            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize + "px";
-            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize + "px";
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridWidth + "px";
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridHeight + "px";
         } else {
             this.setState({
                 size: this.state.size - 5,
-                gridSize: this.state.gridSize - 100
+                gridHeight: this.state.gridHeight - 30,
+                gridWidth: this.state.gridWidth - 55
             });
-            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize + "px";
-            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize + "px";
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridWidth + "px";
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridHeight + "px";
         }
         this.onResetClick();
     }
@@ -11728,7 +11731,7 @@ exports = module.exports = __webpack_require__(92)(undefined);
 
 
 // module
-exports.push([module.i, ".gridItem {\n    border: 1px black solid;\n    height: 20px;\n    width: 20px;\n    display: inline-block;\n    line-height: 0;\n}\n.grid {\n    width: 400px;\n    height: 400px;\n   \n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
+exports.push([module.i, ".gridItem {\n    border: 1px #E8E8EE solid;\n    height: 11px;\n    width: 11px;\n    display: inline-block;\n    float:left    \n}\n.grid {\n    width: 440px;\n    height: 300px;\n   \n}\n.type0{\n    background-color: #E8F8E8\n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
 
 // exports
 

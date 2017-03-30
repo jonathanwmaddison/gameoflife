@@ -15,8 +15,9 @@ class Grid extends Component {
             grid: [],
             generation: 0,
             running: true,
-            size: 20,
-            gridSize: 400
+            size: 40,
+            gridHeight: 300,
+            gridWidth: 440 
         }
     }
     gridMaker(size) {
@@ -117,17 +118,19 @@ class Grid extends Component {
             if(direction ==="increase") {
                 this.setState({
                     size: this.state.size + 5,
-                    gridSize: this.state.gridSize + 100
+                    gridHeight: this.state.gridHeight + 30,
+                    gridWidth: this.state.gridWidth + 55
                 }) 
-            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize+"px"
-            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize+"px"
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridWidth+"px"
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridHeight+"px"
             } else {
                 this.setState({
                     size: this.state.size - 5,
-                    gridSize: this.state.gridSize - 100
+                    gridHeight: this.state.gridHeight - 30,
+                    gridWidth: this.state.gridWidth - 55
                 }) 
-            document.getElementsByClassName('grid')[0].style.width = this.state.gridSize+"px"
-            document.getElementsByClassName('grid')[0].style.height = this.state.gridSize+"px"
+            document.getElementsByClassName('grid')[0].style.width = this.state.gridWidth+"px"
+            document.getElementsByClassName('grid')[0].style.height = this.state.gridHeight+"px"
             }
             this.onResetClick()
     }
