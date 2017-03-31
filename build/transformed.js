@@ -9586,7 +9586,8 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             gridWidth: 440,
             aliveMax: 3,
             aliveMin: 2,
-            deadNum: 3
+            deadNum: 3,
+            speed: 350
         };
     }
     gridMaker(size) {
@@ -9659,7 +9660,7 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         if (this.state.running && this.state.grid.indexOf(1) + this.state.grid.indexOf(2) >= 0) {
             var repeat = setTimeout(() => {
                 this.generateGeneration();this.setState({ generation: 1 + this.state.generation });
-            }, 500);
+            }, this.state.speed);
         } else if (this.state.grid.indexOf(1) + this.state.grid.indexOf(2) < 0) {
             this.onStartClick();
         }
@@ -9713,9 +9714,12 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                 aliveMin: event.target.value
             });
         } else if (event.target.id === "deadNum") {
-            console.log(event.target.value);
             this.setState({
                 deadNum: Number(event.target.value)
+            });
+        } else if (event.target.id === "speed") {
+            this.setState({
+                speed: Number(event.target.value)
             });
         }
     }
@@ -9793,6 +9797,13 @@ class Grid extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     'If you have exactly ',
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange.bind(this), id: 'deadNum', className: 'rulesInput', value: this.state.deadNum }),
                     ' neighbors that are alive you will be alive in the next generation'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h4',
+                    null,
+                    'Each generation lasts ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange.bind(this), id: 'speed', className: 'rulesInput speed', value: this.state.speed }),
+                    ' milliseconds.'
                 )
             )
         );
@@ -11785,7 +11796,7 @@ exports = module.exports = __webpack_require__(92)(undefined);
 
 
 // module
-exports.push([module.i, ".gridItem {\n    border: 1px #E8E8EE solid;\n    height: 11px;\n    width: 11px;\n    display: inline-block;\n    float:left    \n}\n.rulesInput {\n    width: 35px;\n    height: 20px;\n    text-align: center;\n}\n.grid {\n    width: 440px;\n    height: 300px;\n   \n}\n.type0{\n    background-color: #E8F8E8\n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
+exports.push([module.i, ".gridItem {\n    border: 1px #E8E8EE solid;\n    height: 11px;\n    width: 11px;\n    display: inline-block;\n    float:left    \n}\n.rulesInput {\n    width: 35px;\n    height: 20px;\n    text-align: center;\n}\n.speed {\n    width: 45px;\n    height: 25px;\n}\n.grid {\n    width: 440px;\n    height: 300px;\n   \n}\n.type0{\n    background-color: #E8F8E8\n}\n.type1 {\n    background-color: #ffb2b2\n}\n.type2 {\n    background-color: red;\n}\n.type3 {\n    background-color: yellow\n}\n", ""]);
 
 // exports
 
